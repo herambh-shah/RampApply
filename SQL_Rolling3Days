@@ -4,18 +4,20 @@ select
 t1.startDate as rolling_Start_Date,
 avg(t2.transaction_amount) as avg_Transaction_Amount
 from
-(select 
+(
+     select 
 	distinct TO_CHAR(transaction_time, 'YYYY-MM-DD') as startDate , 
- TO_CHAR(transaction_time + INTERVAL '2 days', 'YYYY-MM-DD') as endDate
-    from 
-    transactions
+ 	TO_CHAR(transaction_time + INTERVAL '2 days', 'YYYY-MM-DD') as endDate
+     from 
+    	transactions
 ) t1
 join
-(select 
+(
+     select 
 	TO_CHAR(transaction_time, 'YYYY-MM-DD') as TransactionDate,
  	transaction_amount
     from 
-    transactions
+    	transactions
 ) t2
 on ( 
   t2.TransactionDate between t1.startDate and t1.endDate
